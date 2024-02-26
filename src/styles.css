@@ -9,8 +9,13 @@
 }
 
 .container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
 }
+
 
 .button-box {
     display: flex;
@@ -36,6 +41,8 @@ img {
 }
 
 .scaled-image {
-    width: 50%;
-    height: auto; /* maintains aspect ratio */
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%;
+    object-fit: cover;
 }
