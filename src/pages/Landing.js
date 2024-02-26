@@ -1,9 +1,7 @@
 import '../styles.css'
 import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import GoogleSignInButton from '../googleSignInButton';
-
+// import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
     // const navigate = useNavigate();
@@ -12,10 +10,19 @@ const Landing = () => {
             <div className='container'>
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="logo" className='scaled-image'/>
                 <div className='button-box'>
-                    <GoogleSignInButton />
+                    <button onClick={() => axios.post(
+                        '*BACKEND*/login',
+                        {},
+                        { withCredentials: true })
+                        .then((response) => {
+                            console.log(response);
+                        }, (error) => {
+                            console.log(error);
+                        })}>
+                        Sign in with Google
+                    </button>
                 </div>
             </div>
-            <script src="https://accounts.google.com/gsi/client" async></script>
         </div>
     )
 
