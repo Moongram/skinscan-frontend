@@ -11,7 +11,7 @@ const Landing = () => {
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="logo" className='scaled-image'/>
                 <div className='button-box'>
                     <button onClick={() => axios.post(
-                        '*BACKEND*/login',
+                        'http://localhost:4000/login', // TODO: change to backend port number
                         {},
                         { withCredentials: true })
                         .then((response) => {
