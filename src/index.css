@@ -1,13 +1,104 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body, html {
+  margin: 0; /* Resets default margin */
+  height: 100%; /* Ensures the body takes full viewport height */
+  width: 100%; /* Ensures the body takes full viewport width */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main {
+  display: flex;
+  flex-direction: row; /* Aligns children horizontally */
+  gap: 20px; /* Adjust the gap between the components as necessary */
+  height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default margin */
+  padding: 20px; /* Padding around the main container */
+  box-sizing: border-box; /* Includes padding in the height calculation */
+}
+
+
+.patient-filter {
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  padding: 20px;
+  flex: 1; /* Adjust this value to change the relative width */
+  overflow-y: auto; /* Scroll if content is too tall */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.patient-search-bar {
+  margin-bottom: 20px; /* Adds space between search bar and list */
+}
+
+.patient-list {
+  list-style: none; /* Removes bullet points */
+  padding: 0; /* Resets padding */
+  margin: 0; /* Resets margin */
+}
+
+.patient-list-item {
+  padding: 10px 0; /* Adds padding to each list item */
+  border-bottom: 1px solid #eee; /* Adds a separator between items */
+}
+
+.patient-list-item:last-child {
+  border-bottom: none; /* Removes the border from the last item */
+}
+
+
+
+.image-view-wrapper {
+  display: flex;
+  flex-direction: row; /* Aligns children horizontally */
+  align-items: stretch; /* Stretch to fill parent height */
+  flex: 3; /* Adjust this value to change the relative width */
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: 20px; /* Keeps it separated from the filter */
+  overflow-y: auto; /* Scroll if content is too tall */
+}
+
+.image-container {
+  flex: 1; /* Each image container will take up equal space */
+}
+
+.image {
+  width: 100%; /* Image will fill the container */
+  height: auto; /* Keep the aspect ratio */
+  display: block; /* Removes bottom space under the image */
+}
+
+.divider {
+  width: 2px;
+  background-color: #dedede;
+  /* Ensures the divider stretches to the full height of the parent container */
+  align-self: stretch;
+  margin: 0 20px; /* Adjust spacing as needed */
+}
+
+.patient-search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
+  outline: none; /* Removes the default focus outline */
+}
+
+.search-button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
+}
+
+.search-button:hover {
+  background-color: #45a049; /* Darker shade of green on hover */
 }
