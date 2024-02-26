@@ -1,11 +1,10 @@
 import '../styles.css'
-import '../styles.css'
 import React from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     return (
         <div className='landing'>
             <div className='container'>
