@@ -1,0 +1,28 @@
+{
+    "name": "Dr. Smith",
+    "id": "12345",
+    "role": "doctor",
+    "patients": [
+      {
+        "name": "John Doe",
+        "id": "67890"
+      },
+      {
+        "name": "Jane Doe",
+        "id": "67891"
+      },
+      {
+        "name": "Alice Brown",
+        "id": "67892"
+      },
+      {
+        "name": "Bob White",
+        "id": "67893"
+      },
+      {
+        "name": "Charlie Green",
+        "id": "67894"
+      }
+    ]
+  }
+  

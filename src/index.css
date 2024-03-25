@@ -14,7 +14,6 @@ body, html {
   box-sizing: border-box; /* Includes padding in the height calculation */
 }
 
-
 .patient-filter {
   border: 2px solid #dedede;
   border-radius: 5px;
@@ -22,58 +21,6 @@ body, html {
   flex: 1; /* Adjust this value to change the relative width */
   overflow-y: auto; /* Scroll if content is too tall */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-
-.patient-search-bar {
-  margin-bottom: 20px; /* Adds space between search bar and list */
-}
-
-.patient-list {
-  list-style: none; /* Removes bullet points */
-  padding: 0; /* Resets padding */
-  margin: 0; /* Resets margin */
-}
-
-.patient-list-item {
-  padding: 10px 0; /* Adds padding to each list item */
-  border-bottom: 1px solid #eee; /* Adds a separator between items */
-}
-
-.patient-list-item:last-child {
-  border-bottom: none; /* Removes the border from the last item */
-}
-
-
-
-.image-view-wrapper {
-  display: flex;
-  flex-direction: row; /* Aligns children horizontally */
-  align-items: stretch; /* Stretch to fill parent height */
-  flex: 3; /* Adjust this value to change the relative width */
-  border: 2px solid #dedede;
-  border-radius: 5px;
-  padding: 20px;
-  margin-left: 20px; /* Keeps it separated from the filter */
-  overflow-y: auto; /* Scroll if content is too tall */
-}
-
-.image-container {
-  flex: 1; /* Each image container will take up equal space */
-}
-
-.image {
-  width: 100%; /* Image will fill the container */
-  height: auto; /* Keep the aspect ratio */
-  display: block; /* Removes bottom space under the image */
-}
-
-.divider {
-  width: 2px;
-  background-color: #dedede;
-  /* Ensures the divider stretches to the full height of the parent container */
-  align-self: stretch;
-  margin: 0 20px; /* Adjust spacing as needed */
 }
 
 .patient-search-bar {
@@ -101,4 +48,112 @@ body, html {
 
 .search-button:hover {
   background-color: #45a049; /* Darker shade of green on hover */
+}
+
+.patient-list {
+  list-style: none; /* Removes bullet points */
+  padding: 0; /* Resets padding */
+  margin: 0; /* Resets margin */
+}
+
+.patient-list-item {
+  padding: 10px 0; /* Adds padding to each list item */
+  border-bottom: 1px solid #eee; /* Adds a separator between items */
+}
+
+.patient-list-item:last-child {
+  border-bottom: none; /* Removes the border from the last item */
+}
+
+.image-view-wrapper {
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  flex: 3; /* Adjust this value to change the relative width */
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: 20px; /* Keeps it separated from the filter */
+  overflow-y: hidden; /* Hide vertical overflow */
+}
+
+.image-container-wrapper {
+  display: flex;
+  flex-direction: row; /* Aligns children horizontally */
+  align-items: stretch; /* Stretch to fill parent height */
+  max-height: 800px; /* Set max height for the image containers */
+  overflow-y: auto; /* Make it scrollable */
+}
+
+.image-container {
+  position: relative; /* Needed for absolute positioning of image-info */
+  flex: 1; /* Each image container will take up half the space */
+}
+
+.image {
+  width: 100%; /* Image will fill the container */
+  height: auto; /* Keep the aspect ratio */
+  display: block; /* Removes bottom space under the image */
+}
+
+.divider {
+  height: 100%; /* Ensure the divider stretches to the full height */
+  width: 2px;
+  background-color: #dedede;
+  align-self: center; /* Center the divider */
+  margin: 0 20px; /* Adjust spacing as needed */
+}
+
+.image-info {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  color: rgb(75, 70, 70); /* Grey text */
+  font-size: 12px; /* Adjust font size as needed */
+  z-index: 2; /* Ensures the info is above the image */
+}
+
+.image-bar {
+  display: flex;
+  overflow-x: auto; /* Allows horizontal scrolling */
+  margin: 10px 10px 0 10px; /* Spacing between images and the bar */
+  width: 100%; /* Full width of the image view */
+  height: 120px;
+}
+
+.past-image {
+  width: 100px; /* Adjust as needed */
+  height: auto;
+  margin-right: 10px; /* Spacing between past images */
+  cursor: pointer; /* Indicates clickable images */
+}
+
+.past-image:last-child {
+  margin-right: 0; /* Removes margin from the last image */
+}
+
+.image-note {
+  text-align: center;
+  margin: 10px 0 0px; /* Reduce the bottom margin */
+  font-size: 14px;
+  color: #333;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.zoom-controls button {
+  margin: 0 5px;
+}
+
+.image-bar-container {
+  display: flex;
+  align-items: center;
+}
+
+.image-bar {
+  overflow-x: auto;
 }
