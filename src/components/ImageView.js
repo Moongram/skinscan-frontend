@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft, faArrowRight, faSearchPlus, faSearchMinus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
-const ImageView = ({ leftImage, rightImage }) => {
+const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
   const [zoomLevelRight, setZoomLevelRight] = useState(1);
@@ -94,7 +94,11 @@ const ImageView = ({ leftImage, rightImage }) => {
   };
   return (
     <div className="image-view-wrapper">
+    
       <div className="zoom-controls">
+      <button className="toggle-filter-button" onClick={toggleFilterVisibility}>
+                <FontAwesomeIcon icon={filterVisible ? faArrowLeft : faArrowRight} />
+            </button>
         <button onClick={() => handleZoomIn('left')}>
           <FontAwesomeIcon icon={faSearchPlus} /> Zoom In (Left)
         </button>
