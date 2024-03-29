@@ -1,4 +1,5 @@
 import React, { useState, useRef }  from 'react';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft, faArrowRight, faSearchPlus, faSearchMinus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
@@ -113,21 +114,19 @@ const ImageView = ({ leftImage, rightImage }) => {
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
-        <div className="image-info">
-          <p>{selectedLeftImage.patientName}</p>
-          <p>ID: {selectedLeftImage.photoId}</p>
-          <p>Time: {selectedLeftImage.timestamp}</p>
-        </div>
-        <img src={selectedLeftImage.url} alt="Left comparison" className="image" />
+        <TransformWrapper>
+            <TransformComponent>
+                <img src={selectedLeftImage.url} alt="test" />
+            </TransformComponent>
+        </TransformWrapper>
       </div>
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
-        <div className="image-info">
-          <p>{selectedRightImage.patientName}</p>
-          <p>ID: {selectedRightImage.photoId}</p>
-          <p>Time: {selectedRightImage.timestamp}</p>
-        </div>
-        <img src={selectedRightImage.url} alt="Right comparison" className="image" />
+        <TransformWrapper>
+            <TransformComponent>
+                <img src={selectedRightImage.url} alt="test" />
+            </TransformComponent>
+        </TransformWrapper>
       </div>
     </div>
     <div className="image-note">

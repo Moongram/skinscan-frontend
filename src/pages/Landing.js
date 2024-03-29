@@ -6,14 +6,13 @@ import user from '../user.json';
 import { Cookies } from 'react-cookie';
 
 const Landing = () => {
-    const navigate = useNavigate();
+    console.log(sessionStorage)
+    const changePortNumber = async () => {
+        window.location.href = "http://localhost:5000/login"
+    }
     const handleLogin = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/login', {withCredentials: true})
-            const isLoggedIn = Cookies.get('isLoggedIn')
-            if (isLoggedIn) {
-                console.log('logged in')
-            }
+            changePortNumber()
         } catch (exceptionVar) {
             console.log('exception')
         }
