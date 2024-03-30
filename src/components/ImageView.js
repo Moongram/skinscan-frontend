@@ -18,30 +18,59 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     const updatingRight = useRef(false);
 
     const handleTransformLeft = (e) => {
-        if (!updatingRight.current) {
-            updatingLeft.current = true;
-            transformComponentRight.current.setTransform(
-                e.instance.transformState.positionX,
-                e.instance.transformState.positionY,
-                e.instance.transformState.scale,
-                0
-            );
-            updatingLeft.current = false;
-        }
-    };
+      if (syncZoom && !updatingRight.current) {
+          updatingLeft.current = true;
+          transformComponentRight.current.setTransform(
+              e.instance.transformState.positionX,
+              e.instance.transformState.positionY,
+              e.instance.transformState.scale,
+              0
+          );
+          updatingLeft.current = false;
+      }
+  };
 
-    const handleTransformRight = (e) => {
-        if (!updatingLeft.current) {
-            updatingRight.current = true;
-            transformComponentLeft.current.setTransform(
-                e.instance.transformState.positionX,
-                e.instance.transformState.positionY,
-                e.instance.transformState.scale,
-                0
-            );
-            updatingRight.current = false;
-        }
-    };
+  const handleTransformRight = (e) => {
+      if (syncZoom && !updatingLeft.current) {
+          updatingRight.current = true;
+          transformComponentLeft.current.setTransform(
+              e.instance.transformState.positionX,
+              e.instance.transformState.positionY,
+              e.instance.transformState.scale,
+              0
+          );
+          updatingRight.current = false;
+      }
+  };
+  const toggleSyncZoom = () => {
+    setSyncZoom(!syncZoom);
+};
+
+    // const handleTransformLeft = (e) => {
+    //     if (!updatingRight.current) {
+    //         updatingLeft.current = true;
+    //         transformComponentRight.current.setTransform(
+    //             e.instance.transformState.positionX,
+    //             e.instance.transformState.positionY,
+    //             e.instance.transformState.scale,
+    //             0
+    //         );
+    //         updatingLeft.current = false;
+    //     }
+    // };
+
+    // const handleTransformRight = (e) => {
+    //     if (!updatingLeft.current) {
+    //         updatingRight.current = true;
+    //         transformComponentLeft.current.setTransform(
+    //             e.instance.transformState.positionX,
+    //             e.instance.transformState.positionY,
+    //             e.instance.transformState.scale,
+    //             0
+    //         );
+    //         updatingRight.current = false;
+    //     }
+    // };
   leftImage = {
     url: '/images/image.png',
     patientName: 'Jane Doe',
@@ -107,9 +136,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       <button className="toggle-filter-button" onClick={toggleFilterVisibility}>
                 <FontAwesomeIcon icon={filterVisible ? faArrowLeft : faArrowRight} />
         </button>
-        {/* <button onClick={toggleSyncZoom}>
-          <FontAwesomeIcon icon={faSyncAlt} /> {s=yncZoom ? 'Unsync' : 'Sync'} Zoom
-        </button> */}
+        <button onClick={toggleSyncZoom}>
+          <FontAwesomeIcon icon={faSyncAlt} /> {syncZoom ? 'Unsync' : 'Sync'} Zoom
+        </button>
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
