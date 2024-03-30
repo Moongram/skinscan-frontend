@@ -164,3 +164,15 @@ body, html {
 .image-bar {
   overflow-x: auto;
 }
+
+.upload-picture-wrapper {
+  display: flex;
+  flex: 3;
+  border: 2px solid #dedede;
+  border-radius: 5px;
+
+}
+.upload-picture {
+  display: block;
+  margin: auto;
+}
