@@ -5,36 +5,43 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearchPlus, faSearchMinus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
+
+    const transformComponentLeft = useRef();
+    const transformComponentRight = useRef();
+
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
   const [zoomLevelRight, setZoomLevelRight] = useState(1);
   const [syncZoom, setSyncZoom] = useState(false);
+    // Flags to prevent infinite mutual updates
+    const updatingLeft = useRef(false);
+    const updatingRight = useRef(false);
 
-  const handleZoomIn = (side) => {
-    if (syncZoom) {
-      setZoomLevelLeft(prev => prev * 1.2);
-      setZoomLevelRight(prev => prev * 1.2);
-    } else if (side === 'left') {
-      setZoomLevelLeft(prev => prev * 1.2);
-    } else {
-      setZoomLevelRight(prev => prev * 1.2);
-    }
-  };
+    const handleTransformLeft = (e) => {
+        if (!updatingRight.current) {
+            updatingLeft.current = true;
+            transformComponentRight.current.setTransform(
+                e.instance.transformState.positionX,
+                e.instance.transformState.positionY,
+                e.instance.transformState.scale,
+                0
+            );
+            updatingLeft.current = false;
+        }
+    };
 
-  const handleZoomOut = (side) => {
-    if (syncZoom) {
-      setZoomLevelLeft(prev => prev / 1.2);
-      setZoomLevelRight(prev => prev / 1.2);
-    } else if (side === 'left') {
-      setZoomLevelLeft(prev => prev / 1.2);
-    } else {
-      setZoomLevelRight(prev => prev / 1.2);
-    }
-  };
-  const toggleSyncZoom = () => {
-    setSyncZoom(!syncZoom);
-  };
-
+    const handleTransformRight = (e) => {
+        if (!updatingLeft.current) {
+            updatingRight.current = true;
+            transformComponentLeft.current.setTransform(
+                e.instance.transformState.positionX,
+                e.instance.transformState.positionY,
+                e.instance.transformState.scale,
+                0
+            );
+            updatingRight.current = false;
+        }
+    };
   leftImage = {
     url: '/images/image.png',
     patientName: 'Jane Doe',
@@ -99,26 +106,16 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       <div className="zoom-controls">
       <button className="toggle-filter-button" onClick={toggleFilterVisibility}>
                 <FontAwesomeIcon icon={filterVisible ? faArrowLeft : faArrowRight} />
-            </button>
-        <button onClick={() => handleZoomIn('left')}>
-          <FontAwesomeIcon icon={faSearchPlus} /> Zoom In (Left)
         </button>
-        <button onClick={() => handleZoomOut('left')}>
-          <FontAwesomeIcon icon={faSearchMinus} /> Zoom Out (Left)
-        </button>
-        <button onClick={() => handleZoomIn('right')}>
-          <FontAwesomeIcon icon={faSearchPlus} /> Zoom In (Right)
-        </button>
-        <button onClick={() => handleZoomOut('right')}>
-          <FontAwesomeIcon icon={faSearchMinus} /> Zoom Out (Right)
-        </button>
-        <button onClick={toggleSyncZoom}>
-          <FontAwesomeIcon icon={faSyncAlt} /> {syncZoom ? 'Unsync' : 'Sync'} Zoom
-        </button>
+        {/* <button onClick={toggleSyncZoom}>
+          <FontAwesomeIcon icon={faSyncAlt} /> {s=yncZoom ? 'Unsync' : 'Sync'} Zoom
+        </button> */}
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
-        <TransformWrapper>
+        <TransformWrapper
+        ref={transformComponentLeft}
+        onTransformed={handleTransformLeft}>
             <TransformComponent>
                 <img src={selectedLeftImage.url} alt="test" />
             </TransformComponent>
@@ -126,7 +123,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       </div>
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
-        <TransformWrapper>
+        <TransformWrapper
+        ref={transformComponentRight}
+        onTransformed={handleTransformRight}>
             <TransformComponent>
                 <img src={selectedRightImage.url} alt="test" />
             </TransformComponent>
