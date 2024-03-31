@@ -142,6 +142,11 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
+    <div className="image-info">
+          <p>{selectedLeftImage.patientName}</p>
+          <p>ID: {selectedLeftImage.photoId}</p>
+          <p>Time: {selectedLeftImage.timestamp}</p>
+        </div>
         <TransformWrapper
         ref={transformComponentLeft}
         onTransformed={handleTransformLeft}>
@@ -152,6 +157,11 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       </div>
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
+      <div className="image-info">
+          <p>{selectedRightImage.patientName}</p>
+          <p>ID: {selectedRightImage.photoId}</p>
+          <p>Time: {selectedRightImage.timestamp}</p>
+        </div>
         <TransformWrapper
         ref={transformComponentRight}
         onTransformed={handleTransformRight}>
