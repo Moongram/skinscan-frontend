@@ -72,14 +72,14 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     //     }
     // };
   leftImage = {
-    url: '/images/image.png',
+    url: '/images/lesion1.jpg',
     patientName: 'Jane Doe',
     photoId: '13',
     timestamp: '2024-03-20 10:00',
   };
 
   rightImage = {
-    url: '/images/image.png',
+    url: '/images/lesion2.jpg',
     patientName: 'John Smith',
     photoId: '14',
     timestamp: '2024-03-21 11:00',
@@ -98,7 +98,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     { url: '/images/image.png', patientName: 'Jane Doe', photoId: '9', timestamp: '2024-03-10 14:00' },
     { url: '/images/image.png', patientName: 'Jane Doe', photoId: '10', timestamp: '2024-03-09 15:00' },
     { url: '/images/image.png', patientName: 'Jane Doe', photoId: '11', timestamp: '2024-03-08 16:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '12', timestamp: '2024-03-07 17:00' }
+    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '12', timestamp: '2024-03-07 17:00' },
+    { url: '/images/lesion1.jpg', patientName: 'Jane Doe', photoId: '13', timestamp: '2024-03-19 09:00' },
+    { url: '/images/lesion2.jpg', patientName: 'Jane Doe', photoId: '14', timestamp: '2024-03-20 09:00' }
   ];
   
 
@@ -143,9 +145,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
     <div className="image-info">
-          <p>{selectedLeftImage.patientName}</p>
-          <p>ID: {selectedLeftImage.photoId}</p>
-          <p>Time: {selectedLeftImage.timestamp}</p>
+          <h3>{selectedLeftImage.patientName}</h3>
+          <h3>ID: {selectedLeftImage.photoId}</h3>
+          <h3>Time: {selectedLeftImage.timestamp}</h3>
         </div>
         <TransformWrapper
         ref={transformComponentLeft}
@@ -158,9 +160,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
       <div className="image-info">
-          <p>{selectedRightImage.patientName}</p>
-          <p>ID: {selectedRightImage.photoId}</p>
-          <p>Time: {selectedRightImage.timestamp}</p>
+          <h3>{selectedRightImage.patientName}</h3>
+          <h3>ID: {selectedRightImage.photoId}</h3>
+          <h3>Time: {selectedRightImage.timestamp}</h3>
         </div>
         <TransformWrapper
         ref={transformComponentRight}
