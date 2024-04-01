@@ -12,13 +12,13 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
   const [zoomLevelRight, setZoomLevelRight] = useState(1);
-  const [syncZoom, setSyncZoom] = useState(false);
+  const [syncImages, setSyncImages] = useState(false);
     // Flags to prevent infinite mutual updates
     const updatingLeft = useRef(false);
     const updatingRight = useRef(false);
 
     const handleTransformLeft = (e) => {
-      if (syncZoom && !updatingRight.current) {
+      if (syncImages && !updatingRight.current) {
           updatingLeft.current = true;
           transformComponentRight.current.setTransform(
               e.instance.transformState.positionX,
@@ -31,7 +31,7 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
   };
 
   const handleTransformRight = (e) => {
-      if (syncZoom && !updatingLeft.current) {
+      if (syncImages && !updatingLeft.current) {
           updatingRight.current = true;
           transformComponentLeft.current.setTransform(
               e.instance.transformState.positionX,
@@ -42,8 +42,8 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
           updatingRight.current = false;
       }
   };
-  const toggleSyncZoom = () => {
-    setSyncZoom(!syncZoom);
+  const toggleSyncImages = () => {
+    setSyncImages(!syncImages);
 };
 
     // const handleTransformLeft = (e) => {
@@ -138,8 +138,8 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       <button className="toggle-filter-button" onClick={toggleFilterVisibility}>
                 <FontAwesomeIcon icon={filterVisible ? faArrowLeft : faArrowRight} />
         </button>
-        <button onClick={toggleSyncZoom}>
-          <FontAwesomeIcon icon={faSyncAlt} /> {syncZoom ? 'Unsync' : 'Sync'} Zoom
+        <button onClick={toggleSyncImages}>
+          <FontAwesomeIcon icon={faSyncAlt} /> {syncImages ? 'Unsync' : 'Sync'} Images
         </button>
       </div>
     <div className="image-container-wrapper">
