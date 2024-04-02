@@ -156,6 +156,11 @@ body, html {
   margin: 0 5px;
 }
 
+.user-info {
+    position: absolute;
+    right: 5%;
+}
+
 .image-bar-container {
   display: flex;
   align-items: center;

@@ -1,13 +1,34 @@
-import React, { useState, useRef }  from 'react';
+import React, { useState, useRef, useEffect }  from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft, faArrowRight, faSearchPlus, faSearchMinus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
 
-    const transformComponentLeft = useRef();
-    const transformComponentRight = useRef();
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+
+      if (response.statusText != 'OK') {
+        const message = `An error occurred: ${response.statusText}`;    
+        window.alert(message);
+        return;
+      }
+
+      const retrievedUseInfo = response.data;
+    //   console.log(retrievedUseInfo)
+    setName(retrievedUseInfo.name)
+    }
+
+    getUserInfo()
+  }, [])
+
+  const transformComponentLeft = useRef();
+  const transformComponentRight = useRef();
 
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
@@ -141,6 +162,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
         <button onClick={toggleSyncImages}>
           <FontAwesomeIcon icon={faSyncAlt} /> {syncImages ? 'Unsync' : 'Sync'} Images
         </button>
+        <div className="user-info">
+          Logged in as {name}
+        </div>
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
