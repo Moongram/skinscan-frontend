@@ -66,6 +66,13 @@ body, html {
 .patient-list-item {
   padding: 10px 0; /* Adds padding to each list item */
   border-bottom: 1px solid #eee; /* Adds a separator between items */
+  cursor: pointer;
+
+}
+
+.selected {
+    font-size: large;
+    font-weight: 700;
 }
 
 .patient-list-item:last-child {
