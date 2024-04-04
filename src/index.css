@@ -138,6 +138,13 @@ body, html {
   z-index: 2; /* Ensures the info is above the image */
 }
 
+.select-image-text {
+  height: 100vh;
+  width: 25vw;
+  padding-top: 50%;
+  padding-bottom: 50%;
+}
+
 .image-bar {
   display: flex;
   overflow-x: auto; /* Allows horizontal scrolling */

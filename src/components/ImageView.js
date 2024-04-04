@@ -138,8 +138,8 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     return cdtTime
   }
   
-  const [selectedLeftImage, setSelectedLeftImage] = useState(leftImage);
-  const [selectedRightImage, setSelectedRightImage] = useState(rightImage);
+  const [selectedLeftImage, setSelectedLeftImage] = useState(null);
+  const [selectedRightImage, setSelectedRightImage] = useState(null);
 
   const [lastClickedPosition, setLastClickedPosition] = useState('right');
 
@@ -188,31 +188,35 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
-    <div className="image-info">
+        {selectedLeftImage !== null && <div className="image-info">
           <h3>{patientName}</h3>
           <h3>ID: {selectedLeftImage.id}</h3>
           <h3>Time: {convertTimeZone(selectedLeftImage.timestamp)}</h3>
-        </div>
+        </div>}
+    
         <TransformWrapper
         ref={transformComponentLeft}
         onTransformed={handleTransformLeft}>
             <TransformComponent>
-                <img src={selectedLeftImage.url} alt="test" />
+            {selectedLeftImage !== null && <img src={selectedLeftImage.url} alt="test" />}
+            {selectedLeftImage === null && <h4 className="select-image-text"> SELECT AN IMAGE BELOW </h4>}
             </TransformComponent>
         </TransformWrapper>
       </div>
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
-      <div className="image-info">
+        {selectedRightImage !== null && <div className="image-info">
           <h3>{patientName}</h3>
           <h3>ID: {selectedRightImage.id}</h3>
           <h3>Time: {convertTimeZone(selectedRightImage.timestamp)}</h3>
-        </div>
+        </div>}
+      
         <TransformWrapper
         ref={transformComponentRight}
         onTransformed={handleTransformRight}>
             <TransformComponent>
-                <img src={selectedRightImage.url} alt="test" />
+                {selectedRightImage !== null && <img src={selectedRightImage.url} alt="test" />}
+                {selectedRightImage === null && <h4 className="select-image-text"> SELECT AN IMAGE BELOW </h4>}
             </TransformComponent>
         </TransformWrapper>
       </div>
