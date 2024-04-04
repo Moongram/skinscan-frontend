@@ -16,7 +16,7 @@ const Landing = () => {
     return (
         <div className='landing'>
             <div className='container'>
-            <img src="/images/loginlogo.webp" alt="logo" className='scaled-image'/>
+            <img src="/images/skinscanlogo.png" alt="logo" className='scaled-image'/>
                 <div className='button-box'>
                     <button onClick={handleLogin}>
                         Sign in with Google
