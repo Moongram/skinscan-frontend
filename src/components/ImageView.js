@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect }  from 'react';
+import React, { useState, useRef, useEffect}  from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft, faArrowRight, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
-
+const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisibility, filterVisible}) => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [patientName, setPatientName] = useState('')
   // Placeholder past images data
@@ -14,7 +16,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
 
   useEffect(() => {
     async function getUserInfo() {
-      const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+      const response = await axios.get('http://127.0.0.1:5000/user', { withCredentials: true });
 
       if (response.statusText != 'OK') {
         const message = `An error occurred: ${response.statusText}`;    
@@ -34,7 +36,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     async function getImages() {
         if (selectedPatientId) {
             try {
-                const response = await axios.get(`http://localhost:5000/patient?id=${selectedPatientId}`, 
+                const response = await axios.get(`http://127.0.0.1:5000/patient?id=${selectedPatientId}`, 
                     {withCredentials: true}
                 );
                
@@ -158,6 +160,10 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     }
   };
 
+  const navigateToUpload = () => {
+    navigate('/uploading');
+  };
+
   const scrollToEnd = () => {
     if (imageBarRef.current) {
       imageBarRef.current.scrollLeft = imageBarRef.current.scrollWidth;
@@ -176,6 +182,9 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
         <div className="user-info">
           Logged in as {name}
         </div>
+        <button className="upload-button" onClick={() => navigateToUpload(
+          '/uploading'
+        )}>Upload Image</button>
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
