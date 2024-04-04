@@ -26,7 +26,7 @@ const Uploading = () => {
         formData.append('patientId', selectedPatientId);
 
         try {
-            const response = await axios.post(`http://localhost:5000/upload?patientId=${selectedPatientId}`, formData, {
+            const response = await axios.post(`http://localhost:5000/upload?id=${selectedPatientId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
