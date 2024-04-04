@@ -40,6 +40,9 @@ const Uploading = () => {
             });
             alert('File uploaded successfully');
             console.log(response.data);
+            setSelectedFile(null); 
+            document.querySelector('.upload-picture').value = '';
+
         } catch (error) {
             console.error('Error uploading file:', error);
             alert('Error uploading file');

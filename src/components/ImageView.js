@@ -182,9 +182,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
         <div className="user-info">
           Logged in as {name}
         </div>
-        <button className="upload-button" onClick={() => navigateToUpload(
-          '/uploading'
-        )}>Upload Image</button>
+        
       </div>
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>

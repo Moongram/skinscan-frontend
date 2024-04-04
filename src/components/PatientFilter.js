@@ -74,10 +74,11 @@ const PatientFilter = ({ onPatientSelect }) => {
       name: newPatientName,
     }, { withCredentials: true })
     .then(function (response) {
-      console.log(response);
-      patientsData.push({id: 0, name: newPatientName})
-      console.log(patientsData)
-      setPatientsData(patientsData)
+      const newPatient = { id: response.data.id, name: newPatientName };
+
+    setPatientsData([...patientsData, newPatient]);
+
+    closeAddPatientPrompt();
     })
     .catch(function (error) {
       console.log(error);
