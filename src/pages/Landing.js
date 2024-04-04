@@ -1,14 +1,10 @@
 import '../styles.css'
 import React from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import user from '../user.json';
-import { Cookies } from 'react-cookie';
 
 const Landing = () => {
     console.log(sessionStorage)
     const changePortNumber = async () => {
-        window.location.href = "http://127.0.0.1:5000/login"
+        window.location.href = "http://localhost:5000/login"
     }
     const handleLogin = async () => {
         try {

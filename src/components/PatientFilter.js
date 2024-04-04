@@ -13,9 +13,9 @@ const PatientFilter = ({ onPatientSelect }) => {
 
   useEffect(() => {
     async function getUserInfo() {
-      const response = await axios.get('http://127.0.0.1:5000/user', { withCredentials: true });
+      const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
 
-      if (response.statusText != 'OK') {
+      if (response.statusText !== 'OK') {
         const message = `An error occurred: ${response.statusText}`;    
         window.alert(message);
         return;
@@ -70,7 +70,7 @@ const PatientFilter = ({ onPatientSelect }) => {
   const handleAddPatient = async () => {
     // make post request
 
-    axios.post('http://127.0.0.1:5000/patient', {
+    axios.post('http://localhost:5000/patient', {
       name: newPatientName,
     }, { withCredentials: true })
     .then(function (response) {

@@ -16,7 +16,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
 
   useEffect(() => {
     async function getUserInfo() {
-      const response = await axios.get('http://127.0.0.1:5000/user', { withCredentials: true });
+      const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
 
       if (response.statusText != 'OK') {
         const message = `An error occurred: ${response.statusText}`;    
@@ -36,7 +36,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     async function getImages() {
         if (selectedPatientId) {
             try {
-                const response = await axios.get(`http://127.0.0.1:5000/patient?id=${selectedPatientId}`, 
+                const response = await axios.get(`http://localhost:5000/patient?id=${selectedPatientId}`, 
                     {withCredentials: true}
                 );
                
