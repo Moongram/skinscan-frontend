@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import PatientFilter from '../components/PatientFilter';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Uploading = () => {
 
     const [selectedPatientId, setSelectedPatientId] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const navigate = useNavigate();
 
+    const navigateToMain = (loc) => {
+        navigate('/main');
+      };
+    
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
@@ -26,7 +32,7 @@ const Uploading = () => {
         formData.append('patientId', selectedPatientId);
 
         try {
-            const response = await axios.post(`http://localhost:5000/upload?id=${selectedPatientId}`, formData, {
+            const response = await axios.post(`http://127.0.0.1:5000/upload?id=${selectedPatientId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -43,9 +49,13 @@ const Uploading = () => {
     return (
     <div className='main'>
             <PatientFilter onPatientSelect={handlePatientSelect} />
+          
         <div className='upload-picture-wrapper'>
+        <button className="main-button" onClick={() => navigateToMain(
+          '/main'
+        )}>View Images</button>
             <input type="file" accept="image/*" className='upload-picture' onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload file</button>
+            <button className="upload-picture-button-1"onClick={handleUpload}>Upload file</button>
         </div>
     </div>
     )
