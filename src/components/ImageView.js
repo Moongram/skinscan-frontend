@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect }  from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeft, faArrowRight, faSearchPlus, faSearchMinus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
+const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisibility, filterVisible }) => {
 
   const [name, setName] = useState('');
+  const [patientName, setPatientName] = useState('')
+  // Placeholder past images data
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     async function getUserInfo() {
@@ -19,17 +22,38 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
         return;
       }
 
-      const retrievedUseInfo = response.data;
+      const retrievedUserInfo = response.data;
     //   console.log(retrievedUseInfo)
-    setName(retrievedUseInfo.name)
+    setName(retrievedUserInfo.name)
     }
 
     getUserInfo()
   }, [])
 
+  useEffect(() => {
+    async function getImages() {
+        if (selectedPatientId) {
+            try {
+                const response = await axios.get(`http://localhost:5000/patient?id=${selectedPatientId}`, 
+                    {withCredentials: true}
+                );
+               
+                console.log(response.data);
+                setPatientName(response.data.name)
+                setImages(response.data.images)
+            } catch (error) {
+                console.error('Error getting image:', error);
+                alert('Error getting image');
+            }
+        }
+    }
+
+    getImages()
+  }, [selectedPatientId])
+
   const transformComponentLeft = useRef();
   const transformComponentRight = useRef();
-
+  
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
   const [zoomLevelRight, setZoomLevelRight] = useState(1);
@@ -94,37 +118,24 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     // };
   leftImage = {
     url: '/images/lesion1.jpg',
-    patientName: 'Jane Doe',
+    name: 'Jane Doe',
     photoId: '13',
     timestamp: '2024-03-20 10:00',
   };
 
   rightImage = {
     url: '/images/lesion2.jpg',
-    patientName: 'John Smith',
+    name: 'John Smith',
     photoId: '14',
     timestamp: '2024-03-21 11:00',
   };
   
-   // Placeholder past images data
-   const pastImages = [
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '1', timestamp: '2024-03-18 09:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '2', timestamp: '2024-03-17 08:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '3', timestamp: '2024-03-16 07:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '4', timestamp: '2024-03-15 06:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '5', timestamp: '2024-03-14 10:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '6', timestamp: '2024-03-13 11:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '7', timestamp: '2024-03-12 12:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '8', timestamp: '2024-03-11 13:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '9', timestamp: '2024-03-10 14:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '10', timestamp: '2024-03-09 15:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '11', timestamp: '2024-03-08 16:00' },
-    { url: '/images/image.png', patientName: 'Jane Doe', photoId: '12', timestamp: '2024-03-07 17:00' },
-    { url: '/images/lesion1.jpg', patientName: 'Jane Doe', photoId: '13', timestamp: '2024-03-19 09:00' },
-    { url: '/images/lesion2.jpg', patientName: 'Jane Doe', photoId: '14', timestamp: '2024-03-20 09:00' }
-  ];
+  const convertTimeZone = (time) => {
+    const date = new Date(time);
+    const cdtTime = date.toLocaleString('en-US', { timeZone: 'America/Chicago' });
+    return cdtTime
+  }
   
-
   const [selectedLeftImage, setSelectedLeftImage] = useState(leftImage);
   const [selectedRightImage, setSelectedRightImage] = useState(rightImage);
 
@@ -169,9 +180,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
     <div className="image-container-wrapper">
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
     <div className="image-info">
-          <h3>{selectedLeftImage.patientName}</h3>
-          <h3>ID: {selectedLeftImage.photoId}</h3>
-          <h3>Time: {selectedLeftImage.timestamp}</h3>
+          <h3>{patientName}</h3>
+          <h3>ID: {selectedLeftImage.id}</h3>
+          <h3>Time: {convertTimeZone(selectedLeftImage.timestamp)}</h3>
         </div>
         <TransformWrapper
         ref={transformComponentLeft}
@@ -184,9 +195,9 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
       <div className="divider"></div>
       <div className="image-container" style={{ transform: `scale(${zoomLevelRight})` }}>
       <div className="image-info">
-          <h3>{selectedRightImage.patientName}</h3>
-          <h3>ID: {selectedRightImage.photoId}</h3>
-          <h3>Time: {selectedRightImage.timestamp}</h3>
+          <h3>{patientName}</h3>
+          <h3>ID: {selectedRightImage.id}</h3>
+          <h3>Time: {convertTimeZone(selectedRightImage.timestamp)}</h3>
         </div>
         <TransformWrapper
         ref={transformComponentRight}
@@ -206,7 +217,7 @@ const ImageView = ({ leftImage, rightImage, toggleFilterVisibility, filterVisibl
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         <div className="image-bar" ref={imageBarRef}>
-          {pastImages.map((image, index) => (
+          {images.map((image, index) => (
             <img
               key={index}
               src={image.url}
