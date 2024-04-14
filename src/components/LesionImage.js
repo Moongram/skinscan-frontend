@@ -40,9 +40,9 @@ export const LesionImage = ({ lesions, imgSrc, isA, matchRes, highlight }) => {
     if (!canvasRef.current) return;
     const img = new Image();
     img.src = imgSrc;
-    canvasRef.current.width = img.width;
-    canvasRef.current.height = img.height;
     img.onload = () => {
+      canvasRef.current.width = img.width;
+      canvasRef.current.height = img.height;
       setImage(img);
     };
   }, [imgSrc]);
