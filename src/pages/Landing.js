@@ -4,7 +4,7 @@ import React from 'react';
 const Landing = () => {
     console.log(sessionStorage)
     const changePortNumber = async () => {
-        window.location.href = "http://localhost:5000/login"
+        window.location.href = "http://localhost:4000/login"
     }
     const handleLogin = async () => {
         try {

@@ -16,7 +16,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
 
   useEffect(() => {
     async function getUserInfo() {
-      const response = await axios.get('http://localhost:5000/user', { withCredentials: true });
+      const response = await axios.get('http://localhost:4000/user', { withCredentials: true });
 
       if (response.statusText != 'OK') {
         const message = `An error occurred: ${response.statusText}`;    
@@ -36,10 +36,9 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     async function getImages() {
         if (selectedPatientId) {
             try {
-                const response = await axios.get(`http://localhost:5000/patient?id=${selectedPatientId}`, 
+                const response = await axios.get(`http://localhost:4000/patient?id=${selectedPatientId}`, 
                     {withCredentials: true}
                 );
-               
                 console.log(response.data);
                 setPatientName(response.data.name)
                 setImages(response.data.images)
@@ -57,7 +56,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
 
   const transformComponentLeft = useRef();
   const transformComponentRight = useRef();
-  
+
   // Example data for demonstration
   const [zoomLevelLeft, setZoomLevelLeft] = useState(1);
   const [zoomLevelRight, setZoomLevelRight] = useState(1);
@@ -94,6 +93,44 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
   const toggleSyncImages = () => {
     setSyncImages(!syncImages);
 };
+const [matchResult, setMatchResult] = useState(null);  
+const [leftLesionCoordinates, setLeftLesionCoordinates] = useState(null);
+const [rightLesionCoordinates, setRightLesionCoordinates] = useState(null);
+    const checkMatch = async () => {
+        if (!selectedLeftImage || !selectedRightImage) {
+            alert('Both images must be selected to check for a match.');
+            return;
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:4000/match?a=${selectedLeftImage.id}&b=${selectedRightImage.id}`, { withCredentials: true });
+            setMatchResult(response.data);
+            console.log(matchResult, selectedLeftImage.id, selectedRightImage.id);
+        } catch (error) {
+            console.error('Failed to fetch match data:', error);
+            alert('Failed to check images match');
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:4000/lesion?id=${selectedLeftImage.id}`, { withCredentials: true });
+            setLeftLesionCoordinates(response.data);
+            console.log(leftLesionCoordinates);
+        } catch (error) {
+            console.error('Failed to fetch lesion data:', error);
+            alert('Failed to check images match');
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:4000/lesion?id=${selectedRightImage.id}`, { withCredentials: true });
+            setRightLesionCoordinates(response.data);
+            console.log(rightLesionCoordinates);
+        }
+        catch (error) {
+            console.error('Failed to fetch lesion data:', error);
+            alert('Failed to check images match');
+        }
+
+    };
 
     // const handleTransformLeft = (e) => {
     //     if (!updatingRight.current) {
@@ -181,6 +218,9 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
         <button onClick={toggleSyncImages}>
           <FontAwesomeIcon icon={faSyncAlt} /> {syncImages ? 'Unsync' : 'Sync'} Images
         </button>
+        <button onClick={checkMatch} className="match-check-button">
+                Check If Images Match
+            </button>
         <div className="user-info">
           Logged in as {name}
         </div>
@@ -192,6 +232,7 @@ const ImageView = ({ selectedPatientId, leftImage, rightImage, toggleFilterVisib
     <div className="image-container" style={{ transform: `scale(${zoomLevelLeft})` }}>
         {selectedLeftImage !== null && <div className="image-info">
           <h3>{patientName}</h3>
+    
           <h3>ID: {selectedLeftImage.id}</h3>
           <h3>Time: {convertTimeZone(selectedLeftImage.timestamp)}</h3>
         </div>}
