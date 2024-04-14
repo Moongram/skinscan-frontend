@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   margin: 0; /* Resets default margin */
   height: 100%; /* Ensures the body takes full viewport height */
   width: 100%; /* Ensures the body takes full viewport width */
@@ -7,7 +8,7 @@ body, html {
 .main {
   display: flex;
   flex-direction: row; /* Aligns children horizontally */
-  gap: 20px; 
+  gap: 20px;
   height: 100vh; /* Full viewport height */
   margin: 0; /* Remove default margin */
   padding: 20px; /* Padding around the main container */
@@ -18,16 +19,16 @@ body, html {
   border: 2px solid #dedede;
   border-radius: 5px;
   padding: 20px;
-  flex: 1; 
+  flex: 1;
   overflow-y: auto; /* Scroll if content is too tall */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .toggle-filter-button {
   background-color: #033e32; /* Red background for visibility */
   border: none;
   cursor: pointer;
-  margin: 10px; 
-  z-index: 10; 
+  margin: 10px;
+  z-index: 10;
 }
 
 .patient-search-bar {
@@ -44,24 +45,23 @@ body, html {
   outline: none; /* Removes the default focus outline */
 }
 
- .search-button {
+.search-button {
   padding: 10px 15px;
   border: none;
-  background-color: #4CAF50; /* Green background */
+  background-color: #4caf50; /* Green background */
   color: white;
   cursor: pointer;
   border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
 }
 .add-patient-button {
   padding: 10px 10px;
-  margin-left:5px;
+  margin-left: 5px;
 
   border: none;
-  background-color: #4CAF50; /* Green background */
+  background-color: #4caf50; /* Green background */
   color: white;
   cursor: pointer;
   border-radius: 5px; /* Rounded corners on the right side */
-
 }
 .search-button:hover {
   background-color: #45a049; /* Darker shade of green on hover */
@@ -77,12 +77,11 @@ body, html {
   padding: 10px 0; /* Adds padding to each list item */
   border-bottom: 1px solid #eee; /* Adds a separator between items */
   cursor: pointer;
-
 }
 
 .selected {
-    font-size: large;
-    font-weight: 700;
+  font-size: large;
+  font-weight: 700;
 }
 
 .patient-list-item:last-child {
@@ -125,16 +124,16 @@ body, html {
   width: 2px;
   background-color: #dedede;
   align-self: center; /* Center the divider */
-  margin: 0 20px; 
+  margin: 0 20px;
 }
 
 .image-info {
   text-align: left;
   position: absolute;
-  top: 10px; 
-  left: 10px; 
+  top: 10px;
+  left: 10px;
   color: rgb(75, 70, 70); /* Grey text */
-  font-size: 12px; 
+  font-size: 12px;
   z-index: 2; /* Ensures the info is above the image */
 }
 
@@ -154,7 +153,7 @@ body, html {
 }
 
 .past-image {
-  width: 100px; 
+  width: 100px;
   height: auto;
   margin-right: 10px; /* Spacing between past images */
   cursor: pointer; /* Indicates clickable images */
@@ -183,8 +182,8 @@ body, html {
 }
 
 .user-info {
-    position: absolute;
-    right: 5%;
+  position: absolute;
+  right: 5%;
 }
 
 .image-bar-container {
@@ -197,24 +196,29 @@ body, html {
 }
 
 .upload-picture-wrapper {
-   display: flex;
-    flex: 3 1;
-    border: 2px solid #dedede;
-    border-radius: 5px;
-    flex-direction: row;
+  display: flex;
+  flex: 3 1;
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  flex-direction: row;
 }
-.upload-picture  {
+.upload-picture {
   display: flex;
   margin: auto;
 }
 
 .upload-picture-button-1 {
   padding: 10px 10px;
-  margin:auto
+  margin: auto;
 }
 
 .main-button {
   position: absolute;
   top: 5%;
   right: 3%;
+}
+
+.lesion-canvas {
+  width: 250px;
+  height: auto;
 }
