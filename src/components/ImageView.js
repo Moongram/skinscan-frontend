@@ -104,12 +104,37 @@ const ImageView = ({
       updatingRight.current = false;
     }
   };
+
   const toggleSyncImages = () => {
     setSyncImages(!syncImages);
   };
   const [matchResult, setMatchResult] = useState(null);
   const [leftLesionCoordinates, setLeftLesionCoordinates] = useState(null);
   const [rightLesionCoordinates, setRightLesionCoordinates] = useState(null);
+  const [hoverTarget, setHoverTarget] = useState(null);
+
+  const zoom = () => {
+    if (!matchResult || hoverTarget === null) return;
+    const match = matchResult.mappings[hoverTarget];
+    const leftLesion = leftLesionCoordinates[match.a];
+    const rightLesion = rightLesionCoordinates[match.b];
+    console.log(leftLesion, rightLesion, match);
+
+    transformComponentLeft.current.setTransform(
+      -leftLesion.x,
+      -leftLesion.y,
+      0,
+      0
+    );
+
+    transformComponentRight.current.setTransform(
+      -rightLesion.x,
+      -rightLesion.y,
+      0,
+      0
+    );
+  };
+
   const checkMatch = async () => {
     if (!selectedLeftImage || !selectedRightImage) {
       alert("Both images must be selected to check for a match.");
@@ -281,6 +306,9 @@ const ImageView = ({
                   lesions={leftLesionCoordinates?.lesions || []}
                   matchRes={matchResult?.mappings}
                   highlight={true}
+                  hoverTarget={hoverTarget}
+                  setHoverTarget={setHoverTarget}
+                  onClick={zoom}
                 />
               )}
               {selectedLeftImage === null && (
@@ -312,8 +340,11 @@ const ImageView = ({
                   imgSrc={selectedRightImage.url}
                   isA={false}
                   matchRes={matchResult?.mappings}
-                  lesions={leftLesionCoordinates?.lesions || []}
+                  lesions={rightLesionCoordinates?.lesions || []}
                   highlight={true}
+                  hoverTarget={hoverTarget}
+                  setHoverTarget={setHoverTarget}
+                  onClick={zoom}
                 />
               )}
               {selectedRightImage === null && (
