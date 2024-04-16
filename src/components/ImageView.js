@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { LesionImage } from "./LesionImage";
 
+
 const ImageView = ({
   selectedPatientId,
   toggleFilterVisibility,
@@ -215,6 +216,11 @@ const ImageView = ({
     navigate("/uploading");
   };
 
+  const navigateToLanding = () => {
+    navigate("/");
+  };
+
+
   const scrollToEnd = () => {
     if (imageBarRef.current) {
       imageBarRef.current.scrollLeft = imageBarRef.current.scrollWidth;
@@ -222,6 +228,7 @@ const ImageView = ({
   };
   return (
     <div className="image-view-wrapper">
+
       <div className="zoom-controls">
         <button
           className="toggle-filter-button"
@@ -236,7 +243,11 @@ const ImageView = ({
         <button onClick={checkMatch} className="match-check-button">
           {highlightLesions ? "Unmatch Lesions" : "Match Lesions"}
         </button>
-        <div className="user-info">Logged in as {name}</div>
+        <div className="user-info">
+  <div className="login-name">Logged in as {name}</div>
+  <button className="logout-button" onClick={() => navigate("/")}>Logout</button>
+</div>
+
         <button
           className="upload-button"
           onClick={() => navigateToUpload("/uploading")}
