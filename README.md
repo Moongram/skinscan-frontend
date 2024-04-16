@@ -7,7 +7,7 @@ This repository contains the frontend for SkinScan, a digital platform that enha
 Clone the repository and use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements.
 
 ```bash
-pip install -r "requirements.txt"
+npm install
 ```
 
 ## Usage
