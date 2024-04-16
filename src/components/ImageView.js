@@ -10,7 +10,15 @@ import {
 import axios from "axios";
 import { LesionImage } from "./LesionImage";
 
-
+/**
+ * 
+ * @param {{
+ * selectedPatientId: number;
+ * toggleFilterVisibility(): void;
+ * filterVisible: boolean;
+ * }} props
+ * @returns image view
+ */
 const ImageView = ({
   selectedPatientId,
   toggleFilterVisibility,
@@ -20,7 +28,7 @@ const ImageView = ({
   const [name, setName] = useState("");
   const [patientName, setPatientName] = useState("");
   const [images, setImages] = useState([]);
-
+  // Get user info
   useEffect(() => {
     async function getUserInfo() {
       const response = await axios.get("http://localhost:4000/user", {
@@ -34,13 +42,13 @@ const ImageView = ({
       }
 
       const retrievedUserInfo = response.data;
-      //   console.log(retrievedUseInfo)
       setName(retrievedUserInfo.name);
     }
 
     getUserInfo();
   }, []);
 
+  // Get images for selected patient
   useEffect(() => {
     async function getImages() {
       if (selectedPatientId) {
@@ -74,7 +82,7 @@ const ImageView = ({
   // Flags to prevent infinite mutual updates
   const updatingLeft = useRef(false);
   const updatingRight = useRef(false);
-
+  // Handle left image transformation
   const handleTransformLeft = (e) => {
     if (syncImages && !updatingRight.current) {
       updatingLeft.current = true;
@@ -87,7 +95,7 @@ const ImageView = ({
       updatingLeft.current = false;
     }
   };
-
+  // Handle right image transformation
   const handleTransformRight = (e) => {
     if (syncImages && !updatingLeft.current) {
       updatingRight.current = true;
@@ -100,7 +108,7 @@ const ImageView = ({
       updatingRight.current = false;
     }
   };
-
+  // Toggle sync images
   const toggleSyncImages = () => {
     setSyncImages(!syncImages);
   };
@@ -109,6 +117,8 @@ const ImageView = ({
   const [rightLesionCoordinates, setRightLesionCoordinates] = useState(null);
   const [hoverTarget, setHoverTarget] = useState(null);
 
+
+  // Zoom in on lesion
   const zoom = () => {
     if (
       !matchResult ||
@@ -138,6 +148,7 @@ const ImageView = ({
   };
   const [highlightLesions, setHighlightLesions] = useState(false);
 
+  // Get image match data, lesion data, and highlight lesions
   const checkMatch = async () => {
     if (!selectedLeftImage || !selectedRightImage) {
       alert("Both images must be selected to check for a match.");
@@ -182,6 +193,7 @@ const ImageView = ({
     }
   };
 
+  // Convert time to CDT
   const convertTimeZone = (time) => {
     const date = new Date(time);
     const cdtTime = date.toLocaleString("en-US", {
@@ -195,6 +207,7 @@ const ImageView = ({
 
   const [lastClickedPosition, setLastClickedPosition] = useState("right");
 
+  // Select left and right image from the image bar
   const handleImageClick = (image) => {
     const newPosition = lastClickedPosition === "left" ? "right" : "left";
     if (newPosition === "left") {
@@ -245,7 +258,7 @@ const ImageView = ({
         </button>
         <div className="user-info">
   <div className="login-name">Logged in as {name}</div>
-  <button className="logout-button" onClick={() => navigate("/")}>Logout</button>
+  <button className="logout-button" onClick={() => navigateToLanding("/")}>Logout</button>
 </div>
 
         <button
