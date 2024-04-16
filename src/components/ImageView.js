@@ -114,23 +114,29 @@ const ImageView = ({
   const [hoverTarget, setHoverTarget] = useState(null);
 
   const zoom = () => {
-    if (!matchResult || hoverTarget === null) return;
+    if (
+      !matchResult ||
+      hoverTarget === null ||
+      !leftLesionCoordinates ||
+      !rightLesionCoordinates
+    )
+      return;
     const match = matchResult.mappings[hoverTarget];
-    const leftLesion = leftLesionCoordinates[match.a];
-    const rightLesion = rightLesionCoordinates[match.b];
+    const leftLesion = leftLesionCoordinates.lesions[match.a];
+    const rightLesion = rightLesionCoordinates.lesions[match.b];
     console.log(leftLesion, rightLesion, match);
 
     transformComponentLeft.current.setTransform(
-      -leftLesion.x,
-      -leftLesion.y,
-      0,
+      leftLesion.x,
+      leftLesion.y,
+      1,
       0
     );
 
     transformComponentRight.current.setTransform(
-      -rightLesion.x,
-      -rightLesion.y,
-      0,
+      rightLesion.x,
+      rightLesion.y,
+      1,
       0
     );
   };

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useControls } from "react-zoom-pan-pinch";
 const padding = 1 * devicePixelRatio;
 
 /**
@@ -38,6 +39,8 @@ export const LesionImage = ({
    * @type {[CanvasRenderingContext2D | null, any]}
    */
   const [ctx, setCtx] = useState(null);
+
+  const { setTransform } = useControls();
 
   const [img, setImage] = useState(null);
   useEffect(() => {
@@ -127,12 +130,31 @@ export const LesionImage = ({
     return () => r.removeEventListener("mousemove", handler);
   }, [lesions]);
 
+  const click = () => {
+    const r = canvasRef.current;
+    if (!r || !matchRes || hoverTarget === null) return;
+
+    const targetScale = 15;
+    const currentScale = parseFloat(
+      r.parentElement.style.transform.match(/scale\(((\d|\.)+?\))/)?.[1] ?? 1
+    );
+    const scaleRatio = targetScale / currentScale;
+    const box = r.getBoundingClientRect();
+    const scale = r.width / (box.width * scaleRatio);
+    const t = matchRes[hoverTarget];
+    const l = lesions.find((le) => le.id === (isA ? t.a : t.b));
+    if (!l) return;
+    const adjustedX = l.x / scale;
+    const adjustedY = l.y / scale;
+    console.log(adjustedX, adjustedY, l);
+
+    const xOffset = -adjustedX + 125;
+    const yOffset = -adjustedY + 250;
+    setTransform(xOffset, yOffset, targetScale, 150);
+  };
+
   return (
-    <canvas
-      className="lesion-canvas"
-      ref={canvasRef}
-      onClick={onClick}
-    ></canvas>
+    <canvas className="lesion-canvas" ref={canvasRef} onClick={click}></canvas>
   );
 };
 
