@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
 body,
 html {
   margin: 0; /* Resets default margin */
   height: 100%; /* Ensures the body takes full viewport height */
   width: 100%; /* Ensures the body takes full viewport width */
+  font-family: 'Open Sans', sans-serif; /* Sets the default font for all text */
+
 }
 
 .main {
@@ -124,7 +128,8 @@ img {
 
 .patient-list-item {
   padding: 10px 0; /* Adds padding to each list item */
-  border-bottom: 1px solid #eee; /* Adds a separator between items */
+  border-bottom: 2px solid #5e4d4d; /* Adds a separator between items */
+  background-color: #e7ecef; /* Light grey background */
   cursor: pointer;
 }
 
@@ -140,7 +145,7 @@ img {
 
 
 .image-view-wrapper {
-  display: flex;
+  display: relative;
   flex-direction: column; /* Align items vertically */
   flex: 3; /* Adjust this value to change the relative width */
   border: 2px solid #dedede;
@@ -221,6 +226,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 60px;
   margin-bottom: 10px;
 }
 
@@ -228,10 +234,24 @@ img {
   margin: 0 5px;
 }
 
+
 .user-info {
-  position: absolute;
-  right: 5%;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  justify-content: space-between; 
+  position: absolute; 
+  right: 5%; 
+  margin-top: 10px; 
+  padding: 10px; 
 }
+
+.logout-button {
+  background-color: #a4133c;
+}
+
+
+
 
 .image-bar-container {
   display: flex;
@@ -273,3 +293,4 @@ img {
 .react-transform-wrapper {
   width: 100% !important;
 }
+
