@@ -3,6 +3,8 @@ import React from 'react';
 
 const Landing = () => {
     console.log(sessionStorage)
+    
+    // navigate to the backend's login handling
     const changePortNumber = async () => {
         window.location.href = "http://localhost:4000/login"
     }

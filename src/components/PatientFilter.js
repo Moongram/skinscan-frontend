@@ -11,6 +11,7 @@ const PatientFilter = ({ onPatientSelect }) => {
   const [selectedPatientId, setSelectedPatientId] = useState(-1);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // get the logged in user information
   useEffect(() => {
     async function getUserInfo() {
       const response = await axios.get('http://localhost:4000/user', { withCredentials: true });
@@ -30,11 +31,13 @@ const PatientFilter = ({ onPatientSelect }) => {
     getUserInfo()
   }, [])
 
+  // handle filtering patient by search
   const handleSearchChange = (event) => {
     const { value } = event.target;
     setSearchTerm(value);
   };
 
+  // behavior when a patient is selected
   const handlePatientSelect = (selectedPatientId) => {
     // Call the callback function with the selected patient ID
     setSelectedPatientId(selectedPatientId);
@@ -67,6 +70,7 @@ const PatientFilter = ({ onPatientSelect }) => {
     setNewPatientName(value);
   };
 
+  // handles a new patient being added
   const handleAddPatient = async () => {
     // make post request
 

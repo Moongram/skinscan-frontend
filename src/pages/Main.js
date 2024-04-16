@@ -16,7 +16,6 @@ const Main = () => {
 
     return (
         <div className='main'>
-            {/* TODO: make user info request here and pass in to both patientfilter and imageview */}
             {filterVisible && <PatientFilter onPatientSelect={handlePatientSelect}/>}
             <ImageView selectedPatientId={selectedPatientId} toggleFilterVisibility={toggleFilterVisibility} filterVisible={filterVisible} />
         </div>

@@ -21,6 +21,7 @@ const Uploading = () => {
         setSelectedPatientId(patientId);
     };
 
+    // uploads an image to the database
     const handleUpload = async () => {
         if (!selectedFile || !selectedPatientId) {
             alert('Please select a patient and a file to upload.');
