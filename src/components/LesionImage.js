@@ -43,6 +43,8 @@ export const LesionImage = ({
   const { setTransform } = useControls();
 
   const [img, setImage] = useState(null);
+
+  // setting context
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -50,6 +52,7 @@ export const LesionImage = ({
     setCtx(ctx);
   }, []);
 
+  // setting image
   useEffect(() => {
     if (!canvasRef.current) return;
     const img = new Image();
@@ -61,6 +64,7 @@ export const LesionImage = ({
     };
   }, [imgSrc]);
 
+  // handles highlighting and display type of lesion upon hover
   useEffect(() => {
     if (!ctx || !img) return;
 
@@ -94,21 +98,22 @@ export const LesionImage = ({
       
       switch (hoverTarget % lesionTypes.length) {
         case 0: // benign
-            ctx2.strokeStyle = "green";
+            ctx2.fillStyle = "rgba(79,119,45,.9)";
             break;
         case 1: // premalignant
-            ctx2.strokeStyle = "blue";
+            ctx2.fillStyle = "rgba(0,78,120,.9)";
             break;
         default: // malignant
-            ctx2.strokeStyle = "red";
+            ctx2.fillStyle = "rgba(208,0,0,.9)";
             break;
       }
-      ctx2.font = "normal 16px system-ui";
+      ctx2.font = "bold 16px system-ui";
       ctx2.textAlign = "center";
-      ctx.strokeText(getLesionTypeForId(hoverTarget), l.x, l.y + 2.1 * (l.radius + padding));
+      ctx.fillText(getLesionTypeForId(hoverTarget), l.x, l.y + 2.1 * (l.radius + padding));
     }
   }, [img, lesions, highlight, ctx, isA, matchRes, hoverTarget]);
 
+  // handles mouse hover
   useEffect(() => {
     const r = canvasRef.current;
     if (!r) return;
@@ -145,6 +150,7 @@ export const LesionImage = ({
     return () => r.removeEventListener("mousemove", handler);
   }, [lesions]);
 
+  // handles click on lesion
   const click = () => {
     const r = canvasRef.current;
     if (!r || !matchRes || hoverTarget === null) return;
@@ -173,6 +179,7 @@ export const LesionImage = ({
   );
 };
 
+// get the color to highlight a lesion given its id
 const getColorForId = (id) => {
   //h(x)=ax^2+bx+c mod R
   const a = 924755240;
@@ -183,9 +190,13 @@ const getColorForId = (id) => {
   return colors[(h % p) % colors.length];
 };
 
+// get the type of lesion given its id
 const getLesionTypeForId = (id) => {
     return lesionTypes[id % 3];
 }
 
+// list of colors to use as highlight
 const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
+
+// list of types of lesions
 const lesionTypes = ["Benign", "Premalignant", "Maligant"]
