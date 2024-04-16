@@ -91,6 +91,21 @@ export const LesionImage = ({
       ctx.beginPath();
       ctx.arc(l.x, l.y, l.radius + padding, 0, 359.9999);
       ctx2.stroke();
+      
+      switch (hoverTarget % lesionTypes.length) {
+        case 0: // benign
+            ctx2.strokeStyle = "green";
+            break;
+        case 1: // premalignant
+            ctx2.strokeStyle = "blue";
+            break;
+        default: // malignant
+            ctx2.strokeStyle = "red";
+            break;
+      }
+      ctx2.font = "normal 16px system-ui";
+      ctx2.textAlign = "center";
+      ctx.strokeText(getLesionTypeForId(hoverTarget), l.x, l.y + 2.1 * (l.radius + padding));
     }
   }, [img, lesions, highlight, ctx, isA, matchRes, hoverTarget]);
 
@@ -168,4 +183,9 @@ const getColorForId = (id) => {
   return colors[(h % p) % colors.length];
 };
 
+const getLesionTypeForId = (id) => {
+    return lesionTypes[id % 3];
+}
+
 const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
+const lesionTypes = ["Benign", "Premalignant", "Maligant"]
