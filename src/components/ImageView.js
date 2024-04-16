@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {
   faArrowLeft,
   faArrowRight,
@@ -14,15 +12,12 @@ import { LesionImage } from "./LesionImage";
 
 const ImageView = ({
   selectedPatientId,
-  leftImage,
-  rightImage,
   toggleFilterVisibility,
   filterVisible,
 }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [patientName, setPatientName] = useState("");
-  // Placeholder past images data
   const [images, setImages] = useState([]);
 
   useEffect(() => {
