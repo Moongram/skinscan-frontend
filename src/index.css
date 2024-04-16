@@ -6,13 +6,13 @@ html {
 }
 
 .main {
-  gap: 20px;
+  display: flex;
+  flex-direction: row; /* Aligns children horizontally */
+  gap: 20px; 
   height: 100vh; /* Full viewport height */
   margin: 0; /* Remove default margin */
   padding: 20px; /* Padding around the main container */
   box-sizing: border-box; /* Includes padding in the height calculation */
-  display: grid;
-  grid-template-columns: 450px 1fr;
 }
 
 .patient-filter {
@@ -88,16 +88,17 @@ html {
   border-bottom: none; /* Removes the border from the last item */
 }
 
+
+
 .image-view-wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-  height: 100%;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  flex: 3; /* Adjust this value to change the relative width */
   border: 2px solid #dedede;
   border-radius: 5px;
   padding: 20px;
-  margin-left: 20px;
-  overflow-y: hidden;
+  margin-left: 20px; /* Keeps it separated from the filter */
+  overflow-y: hidden; /* Hide vertical overflow */
 }
 .image-container-wrapper {
   display: grid;
