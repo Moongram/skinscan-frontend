@@ -134,6 +134,7 @@ const ImageView = ({
       0
     );
   };
+  const [highlightLesions, setHighlightLesions] = useState(false);
 
   const checkMatch = async () => {
     if (!selectedLeftImage || !selectedRightImage) {
@@ -147,6 +148,7 @@ const ImageView = ({
         { withCredentials: true }
       );
       setMatchResult(response.data);
+      setHighlightLesions(!highlightLesions);
       console.log(matchResult, selectedLeftImage.id, selectedRightImage.id);
     } catch (error) {
       console.error("Failed to fetch match data:", error);
@@ -176,45 +178,6 @@ const ImageView = ({
       console.error("Failed to fetch lesion data:", error);
       alert("Failed to check images match");
     }
-  };
-
-  // const handleTransformLeft = (e) => {
-  //     if (!updatingRight.current) {
-  //         updatingLeft.current = true;
-  //         transformComponentRight.current.setTransform(
-  //             e.instance.transformState.positionX,
-  //             e.instance.transformState.positionY,
-  //             e.instance.transformState.scale,
-  //             0
-  //         );
-  //         updatingLeft.current = false;
-  //     }
-  // };
-
-  // const handleTransformRight = (e) => {
-  //     if (!updatingLeft.current) {
-  //         updatingRight.current = true;
-  //         transformComponentLeft.current.setTransform(
-  //             e.instance.transformState.positionX,
-  //             e.instance.transformState.positionY,
-  //             e.instance.transformState.scale,
-  //             0
-  //         );
-  //         updatingRight.current = false;
-  //     }
-  // };
-  leftImage = {
-    url: "/images/lesion1.jpg",
-    name: "Jane Doe",
-    photoId: "13",
-    timestamp: "2024-03-20 10:00",
-  };
-
-  rightImage = {
-    url: "/images/lesion2.jpg",
-    name: "John Smith",
-    photoId: "14",
-    timestamp: "2024-03-21 11:00",
   };
 
   const convertTimeZone = (time) => {
@@ -270,7 +233,7 @@ const ImageView = ({
           Images
         </button>
         <button onClick={checkMatch} className="match-check-button">
-          Check If Images Match
+          {highlightLesions ? "Unmatch Lesions" : "Match Lesions"}
         </button>
         <div className="user-info">Logged in as {name}</div>
         <button
@@ -305,10 +268,10 @@ const ImageView = ({
                   isA={true}
                   lesions={leftLesionCoordinates?.lesions || []}
                   matchRes={matchResult?.mappings}
-                  highlight={true}
                   hoverTarget={hoverTarget}
                   setHoverTarget={setHoverTarget}
                   onClick={zoom}
+                  highlight={highlightLesions}
                 />
               )}
               {selectedLeftImage === null && (
