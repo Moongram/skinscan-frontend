@@ -1,6 +1,9 @@
 import '../styles.css'
 import React from 'react';
 
+/**
+ * @returns landing page
+ */
 const Landing = () => {
     console.log(sessionStorage)
     

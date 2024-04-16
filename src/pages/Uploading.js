@@ -3,6 +3,9 @@ import PatientFilter from '../components/PatientFilter';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * @returns page where image uploading for a selected patient can be done
+ */
 const Uploading = () => {
 
     const [selectedPatientId, setSelectedPatientId] = useState(null);

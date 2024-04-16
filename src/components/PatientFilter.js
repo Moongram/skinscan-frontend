@@ -2,6 +2,11 @@ import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 export const PatientContext = createContext();
 
+/**
+ * 
+ * @param {onPatientSelect} props 
+ * @returns list of patients
+ */
 const PatientFilter = ({ onPatientSelect }) => {
 
   const [patientsData, setPatientsData] = useState([]);
