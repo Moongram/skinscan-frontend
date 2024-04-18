@@ -18,6 +18,8 @@ const padding = 1 * devicePixelRatio;
  * highlight?: boolean;
  * setHoverTarget(id: number): void;
  * hoverTarget: number | null;
+ * hoverTargetDate: Date;
+ * hoverTargetTaker: String;
  * }} props
  */
 export const LesionImage = ({
@@ -28,6 +30,8 @@ export const LesionImage = ({
   highlight,
   setHoverTarget,
   hoverTarget,
+  hoverTargetDate,
+  hoverTargetTaker,
   onClick,
 }) => {
   /**
@@ -109,7 +113,11 @@ export const LesionImage = ({
       }
       ctx2.font = "bold 16px system-ui";
       ctx2.textAlign = "center";
-      ctx.fillText(getLesionTypeForId(hoverTarget), l.x, l.y + 2.1 * (l.radius + padding));
+      ctx.fillText("Diagnosis: " + getLesionTypeForId(hoverTarget), l.x, l.y + 1.9 * (20));
+
+      ctx2.fillStyle = "rgba(249,249,249,0.9)";
+      ctx.fillText("Date diagnosed: " + hoverTargetDate, l.x, l.y + 2.8 * (20));
+      ctx.fillText("Captured by: " + hoverTargetTaker, l.x, l.y + 3.7 * (20));
     }
   }, [img, lesions, highlight, ctx, isA, matchRes, hoverTarget]);
 
@@ -192,7 +200,7 @@ const getColorForId = (id) => {
 
 // get the type of lesion given its id
 const getLesionTypeForId = (id) => {
-    return lesionTypes[id % 3];
+    return lesionTypes[id % lesionTypes.length];
 }
 
 // list of colors to use as highlight

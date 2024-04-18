@@ -295,6 +295,8 @@ const ImageView = ({
                   matchRes={matchResult?.mappings}
                   hoverTarget={hoverTarget}
                   setHoverTarget={setHoverTarget}
+                  hoverTargetDate={convertTimeZone(selectedLeftImage.timestamp)}
+                  hoverTargetTaker={getRandomNurseName(selectedLeftImage.id)}
                   onClick={zoom}
                   highlight={highlightLesions}
                 />
@@ -332,6 +334,8 @@ const ImageView = ({
                   highlight={highlightLesions}
                   hoverTarget={hoverTarget}
                   setHoverTarget={setHoverTarget}
+                  hoverTargetDate={convertTimeZone(selectedRightImage.timestamp)}
+                  hoverTargetTaker={getRandomNurseName(selectedRightImage.id)}
                   onClick={zoom}
                 />
               )}
@@ -369,4 +373,13 @@ const ImageView = ({
     </div>
   );
 };
+
+// get a random nurse name
+const getRandomNurseName = (id) => {
+    return nurseNames[id % nurseNames.length];
+}
+
+// list of nurse names
+const nurseNames = ["Jennifer", "Sarah", "Jessica", "Daniel", "Nicole", "Nancy"];
+
 export default ImageView;
